@@ -1,0 +1,131 @@
+npm create vite
+Coloco nombreProyecto
+React
+JavaScript
+cd nombreProyecto
+npm install
+npm run dev
+    Levanta un SERVIDOR de desarrollo en
+        IP: localhost
+        PUERTO: 5173 (por defecto)
+    Abrirlo en el navegador
+
+ELIMINAR DEL PROYECTO:
+    -assets
+    -App.css
+    -App.jsx
+    -index.css
+
+Ir a main.jsx, borrar todo y escribir un Hello World! en un console log
+
+Scope de variables: let o const 
+    -> crean una variable en un scope determinado.
+    -> puedo usar 2 variables con el mismo nombre en 2 scope distintos
+
+Template Strings:
+    const nombre = 'Agustin';
+    const apellido = 'Brocani';
+    const nombreCompleto = `$nombre $apellido`;
+
+Objetos literales(Diccionarios en otros lenguajes): trabajan con pares de valores Key-Value
+    const persona = {};
+    CUANDO CREO CUALQUIER COSA en js tiene un PROTOTYPE -> funciones, metodos, getters y setters
+    , AL FINAL de props es BUENA PRÁCTICA
+    En ECMAscript6 {persona} // estoy creando un nuevo objeto que tiene un key-value persona: persona -> ASI CONOZCO EL NOMBRE DEL Objetos
+    Props se ordenan alfabeticamente por estandar de los navegadores
+    Spread Operator(...):
+    NO HACER const persona2 = persona; // COPIA REFERENCIA, si cambio valor de prop, cambie objeto original => usar OPERADOR spread para hacer copia real.
+
+Arrays: colección de info en 1 variable
+    const arreglo = new Array();    // array vacio
+    const arreglo = new Array(100); // array 100 posiciones vacias
+    arreglo.push(valor);    // agregar => NO USARLO, modifica el objeto principal, usar spread
+    EJEMPLO DE CAMBIO:
+    let arreglo2 = arreglo;
+    arreglo2.push(5);   
+    console.log(arreglo)    // [1,2,3,4,5]
+    FORMA CORRECTA DE AGREGAR:
+    const arreglo2 = [...arreglo, 5];
+    FUNCIÓN map => es parte del prototype de los Array
+    MAP crea un NUEVO ARRAY.
+    const funcion = () => 'Para cada elemento, ejecuto esto';
+    arreglo.map(funcion);   // funcion es una función de callback
+    Si FUNCION NO TIENE return explícito => retorna undefined
+
+Funciones
+    NO USAR function para crear función => puedo pisar la referencia a la función => usar const y el nombre
+    EJEMPLO:
+        function saludar(nombre) {
+            return `Hola ${nombre}`;
+        };
+        saludar = 30;
+        console.log(saludar);
+    Eso es válido.
+    USAR:
+    const saludar = function(nombre) {
+        return `Hola ${nombre}`;
+    };
+    const saludar2 = (nombre) => {
+        return `Hola ${nombre}`;
+    };
+    const saludar3 = (nombre) => `Hola ${nombre}`;
+    Protip con arrow functions: usar () para ahorrarme el return cuando quiero que devuelva un bloque
+    const getUser = () => ({
+        uid: 'AB123',
+        username: 'MiUserID'
+    });
+    VERSIÓN LARGA:
+    const getUser = () => {
+    return ({
+        uid: 'AB123',
+        username: 'MiUserID'
+    })};
+
+Desestructuración de objetos(asignación desestructurante):
+    const persona = {
+        nombre: 'Tony',
+        edad: 45,
+        clave: 'Ironman'
+    };
+
+    console.log(persona.nombre);
+    console.log(persona.edad);
+    console.log(persona.clave);
+    ¡HACER ESO es MOLESTO! => uso asignación desestructurante
+        const {nombre} = persona;
+    Si quiero asignar otro alias => ya no puedo usar nombre para invocarlo, debo usar nombre2
+        const {nombre: nombre2} = persona;
+    Si quiero desestructurar más de 1 prop:
+        const {nombre, edad, clave} = persona;
+    Utilidad real:
+        const retornarPersona = (persona) => {
+            const {nombre, edad, clave} = persona;
+            console.log(nombre, edad, clave);
+        };
+    USAR mejor: 
+        const retornarPersona = ({nombre, edad, clave}) => {
+            console.log(nombre, edad, clave);
+        };
+    IMPORTANTE: puedo asignar valores por defecto.
+        const retornarPersona = ({nombre, edad, clave, rango = 'CEO'}) => {
+            console.log(nombre, edad, clave, rango);    // Tony 45 Ironman CEO
+        };
+    SI EXISTE, usa el valor que recibe, SI NO EXISTE, asigna 'CEO' en lugar de undefined.
+    const useContext = ({nombre, edad, clave, rango = 'CEO'}) => {
+        return {
+            nombreClave: clave,
+            anios: edad,
+            latlng: {
+                lat: 14.1232,
+                lng: -12.3232
+            }
+        };
+    };
+    const avenger = useContext(persona);
+    ¿Qué pasa si existen N niveles de anidamiento y quiero desestructurar en variables?
+        const { nombreClave, anios, latlng:{lat, lng} } = avenger;
+    console.log(lat, lng);
+    Si lo quiero más prolijo:
+        const {nombreClave, anios, latlng} = avenger;
+        const {lat, lng} = latlng; 
+       
