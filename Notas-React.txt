@@ -1,0 +1,44 @@
+Crear React App preconfigurada:
+    2 maneras:
+        -CRA: Create React App
+            -Trabaja en base a webpack
+            https://create-react-app.dev/
+
+            npx create-react-app nombreProject
+
+        -Vite
+            -Utiliza otra forma para cambios de modulo
+            -Mas rapido que CRA
+            https://vite.dev/
+
+            npm create vite
+            cd nombreProject
+            npm install
+            npm run dev
+# ==========================================
+# INICIO de React
+# ==========================================
+Componente: pequeña parte de código encapsulado que puede o no tener estado y realiza un trabajo especifico
+[CamelCase]
+    
+    Ejemplo de division por componentes en una App:
+    TwitterApp: enmarca TODOS los componentes hijos.
+        Menu
+            MenuItem
+        Etc
+
+    Arbol de componentes:
+        TwitterApp -> Router -> Screen/Pagina -> Menu -> MenuItem
+            Router: NAVEGAR entre paginas sin hacer refresh del navegador
+
+    -Cada componente es RESPONSABLE de una accion
+    -Cada componente puede tener hijos
+
+Estado: como se encuentra la info del componente en un punto especifico de tiempo.
+
+CRA vs Vite
+    CRA
+
+    Vite
+
+    // HASTA ACÁ solo cree los proyectos, no hice nada mas
