@@ -25,7 +25,7 @@ Scope de variables: let o const
 Template Strings:
     const nombre = 'Agustin';
     const apellido = 'Brocani';
-    const nombreCompleto = `$nombre $apellido`;
+    const nombreCompleto = `${nombre} ${apellido}`;
 
 Objetos literales(Diccionarios en otros lenguajes): trabajan con pares de valores Key-Value
     const persona = {};
@@ -289,4 +289,16 @@ fetch: es una función nativa de JavaScript (desde ES6) que se usa para hacer so
     mode	    'cors', 'no-cors', 'same-origin'
     credentials	'include', 'omit', 'same-origin' (cookies)
     cache	    Controla el caché: 'no-cache', 'reload', etc.
+
+Object.values(algo) => convierte objeto de objetos en array de objetos
+
+async-await:
+    async: clausula que automáticamente convierte el retorno en una Promise
+    await: clausula, usada dentro de una funcion async, para esperar que una promesa se resuelva antes de seguir ejecutando el código
+    ERRORES se manejan con try-catch dentro de la funcion async
+
+then-catch vs async-await:
+    Hacer .then concatenados es equivalente a tener varios await
+        [Se espera a que se resuelva un .then para resolver el siguiente]
+    Usar 1 solo .catch es quivalente al catch del try-catch en async-await
 
