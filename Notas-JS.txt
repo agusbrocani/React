@@ -18,6 +18,9 @@ ELIMINAR DEL PROYECTO:
 
 Ir a main.jsx, borrar todo y escribir un Hello World! en un console log
 
+# ==========================================
+# INICIO de JavaScript
+# ==========================================
 Scope de variables: let o const 
     -> crean una variable en un scope determinado.
     -> puedo usar 2 variables con el mismo nombre en 2 scope distintos
@@ -302,3 +305,21 @@ then-catch vs async-await:
         [Se espera a que se resuelva un .then para resolver el siguiente]
     Usar 1 solo .catch es quivalente al catch del try-catch en async-await
 
+Operador ternario
+    SI QUIERO AMBAS PARTES:
+    const mensaje = activo ? 'Activo' : 'Inactivo';
+    
+    QUIERO EJECUTAR SOLO 1 PARTE:
+        Como NO HACERLO
+            const mensaje = activo ? 'Activo' : null;
+        COMO HACERLO
+            const mensaje = activo && 'Activo';
+    
+    RESULTADO:
+    // Se ve por consola 'Activo' si activo es true y false si activo es false
+    console.log(mensaje);   // EQUIVALENTE => activo ? 'Activo' : false;
+
+REPO DE JavaScript: https://github.com/Klerith/react-intro-javascript
+# ==========================================
+# FIN de JavaScript
+# ==========================================
