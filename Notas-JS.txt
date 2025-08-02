@@ -127,5 +127,166 @@ Desestructuración de objetos(asignación desestructurante):
     console.log(lat, lng);
     Si lo quiero más prolijo:
         const {nombreClave, anios, latlng} = avenger;
-        const {lat, lng} = latlng; 
-       
+        const {lat, lng} = latlng;
+
+Desestructuración de Arrays:
+    const array = [1,2,3];
+    const [valor1] = array;         // console.log(valor1); -> 1
+    const [ , , valor3] = array;    // console.log(valor3); -> 3
+    
+    const useState = (valor) => {
+        return [valor, () => {console.log('Hola Mundo')}];
+    }
+    const [, holaMundo] = useState('Goku');
+    holaMundo();
+
+    const useStateTarea = (nombre) => {
+        return [nombre, () => console.log("Cambie el nombre " + nombre)];
+    }
+    const [nombre, setNombre] = useStateTarea('Agustin');
+    console.log(nombre);
+
+IMPORT, EXPORT, FIND, INDEXOF, FILTER:
+
+    IMPORTANTE: cuando hago un IMPORT, se ejecuta TODO el archivo importado 1 vez.
+
+    EXPORT-IMPORT INDIVIDUAL:
+        Shortcut: imp + TAB
+        export const algo = [];
+        import { algo } from 'path donde esta algo'
+
+    EXPORT-IMPORT PARA TODO EL ARCHIVO: NO LLEVA NOMBRE, el nombre lo coloco cuando hago el import
+    export default [e1, e2, e3];    // NO LLEVA NOMBRE
+    import algo from 'path donde esta algo'
+
+    EXPORT-IMPORT MIXTO:
+        export {
+            heroes as default,
+            owners
+        }
+        import heroes, { owners } from 'path donde esta algo'
+
+    FUNCION DE CALLBACK:
+        (elemento, indice, array) => {return algo;}
+
+    FUNCIÓN FIND: Devuelve el primer elemento del array que cumple con la condición indicada por una función
+        const algo = valorQueQuieroMatchear;
+        const fCallback = (elemento) => elemento == algo; 
+        heroes.find(fCallback)
+            Devuelve el 1er ELEMENTO que cumple la condición.
+        heroes.findIndex(fCallback)
+            Devuelve el 1er INDICE que cumple la condicion => USAR CON OBJETOS, yo le digo como comparar
+
+    FUNCIÓN INDEXOF: Devuelve el índice del primer elemento exactamente igual (===) al valor buscado.
+        const variableABuscar = valor;
+        heroes.indexOf(variableABuscar)
+            Devuelve el 1er INDICE que ES IGUAL al VALOR PASADO POR PARÁMETRO.
+            const objetoHeroe = { id: 2, name: 'Spiderman', owner: 'Marvel' };
+            const indiceHeroe = heroes.indexOf(objetoHeroe);
+            console.log(indiceHeroe);   // -1 => NO EXISTE, compara REFERENCIAS porque son OBJETOS
+
+    FUNCIÓN FILTER: Devuelve un nuevo array con todos los elementos que cumplen con la condición.
+        heroes.filter((h) => h.id === id)   // [h1, h2, h3] siendo h1, h2, h3 objetos heroe que cumplen la condición
+
+    RESUMEN:
+        .filter                     !=      .find
+        Array de N Objetos o []             1 Objeto o undefined
+
+        findIndex                   !=          indexOf
+        Recibe una funcion de callback          Recibe lo que quiero buscar
+        Le digo como comparar                   Compara por valor
+        USAR CON OBJETOS                        USAR CON TIPOS BÁSICOS
+
+Promesas:
+    Una Promise está en uno de estos estados:
+        pending     (pendiente) : estado inicial, ni cumplido ni rechazado.
+        fulfilled   (cumplida)  : lo que significa que la operación se completó con éxito.
+        rejected    (rechazada) : lo que significa que la operación falló.
+
+        const promesa = new Promise(callback);
+            callback: funcion que se ejecuta en algún momento y se pasa por parámetro a otra función.
+
+        const callback = (resolve, reject) => {
+            // resolve  : callback que se ejecuta cuando la promesa es exitosa
+            // reject   : callback que se ejecuta cuando la promesa falla
+        };
+    
+    setTimeout: ejecuta callback cada X tiempo en milisegundos
+        setTimeout(callback, tiempoEnMs);
+
+    EJECUTAR ACCIONES cuando Promise pase de pending a fullfilled o rejected
+
+    .then       => se ejecuta si la promesa esta en estado fulfilled
+    .catch      => se ejecuta si la promesa esta en estado rejected
+    .finally    => algo que se ejecuta SI o SI despues del then/catch
+
+    IMPORTANTE: si NO UTILIZO resolve() y reject() dentro del CALLBACK de la Promise => NO VOY A CAPTAR NADA EN EL THEN ni en el CATCH
+
+    RESUMEN:
+        -resolve y reject por convención.
+        -si no invoco a resolve y reject, then y catch no atrapan nada.
+        -si quiero utilizar parametros dentro de una promesa, englobo promesa en funcion que es async
+        -Llamado: funcionAsync(parametroAMandar)
+            .then(callbackThen)
+            .catch(callbackCatch)
+            .finally(callabackFinally);
+
+        const funcionAsync = (parametroAMandar) => {
+            const callback = (resolve, reject) =>{
+                const resultado = operacion(parametroAMandar);
+                if (!resultado) {
+                    reject('Mensaje de error');
+                }
+                resolve(resultado);
+            };
+            return new Promise(callback);
+        }
+
+        ¿Que pasa si operacion puede fallar? => uso try-catch
+        const funcionAsync = (parametroAMandar) => {
+            const callback = (resolve, reject) =>{
+                try {
+                    const resultado = operacion(parametroAMandar);
+                    resolve(resultado);
+                } catch (err) {
+                    reject('Mensaje de error ' + err);
+                }
+            };
+            return new Promise(callback);
+        }
+
+    DOCUMENTACIÓN: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+fetch: es una función nativa de JavaScript (desde ES6) que se usa para hacer solicitudes HTTP/HTTPS desde el navegador.
+    Recibe 2 parametros
+        url         => string, es importante que tenga bien el HTTP o HTTPS
+        opciones    => objeto de configuración
+    RETORNA Promise
+    IMPORTANTE: ¡NO SE RECHAZA la Promise por ERRORES HTTP!, porque tuve respuesta.
+        => debo manejarlo con resp.ok o resp.status
+
+    Ejemplo con 1 parametro[Hace GET basico por defecto]
+    fetch(url).then(resp => {
+    console.log(resp.status); // 200, 404, 500, etc.
+    console.log(resp.ok);     // true si status está entre 200 y 299
+    console.log(resp.headers); // Headers de la respuesta
+    });
+
+    Ejemplo con opciones:
+    fetch('https://api.ejemplo.com/usuarios', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer token123'
+        },
+        body: JSON.stringify({ nombre: 'Agustin' })
+    });
+
+    Propiedad	¿Qué hace?
+    method	    HTTP method: 'GET', 'POST', 'PUT', etc.
+    headers	    Cabeceras HTTP como Content-Type, Accept
+    body	    Cuerpo de la solicitud (JSON, texto, etc.)
+    mode	    'cors', 'no-cors', 'same-origin'
+    credentials	'include', 'omit', 'same-origin' (cookies)
+    cache	    Controla el caché: 'no-cache', 'reload', etc.
+
