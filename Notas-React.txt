@@ -193,3 +193,22 @@ Evento click
     Cuando quiero enviar mas parametros que los basicos de onClick
         <button onClick={(event) => funcionDeAccion(event, otro)}>Mi Boton</button>
     INFO: https://es.react.dev/reference/react-dom/components/common#react-event-object
+
+Hooks: es una FUNCION ESPECIAL que me permite utilizar alguna caracteristica de React. Salvando las distancias, es como hacer un syscall. Le pido algo al motor interno de React.
+    Nomenclatura: comienzan con 'use' se escriben en camelCase
+    
+    useState: permite guardar y modificar un valor(estado)
+        const [counter, setCounter] = useState(valorInicial);
+        
+        // ¡NO USAR!(si tengo llamadas seguidas de setCounter) -> puede dar lugar a una condición de carrera lógica si se hacen múltiples actualizaciones seguidas.
+        // Usa el valor "viejo" del render actual, no el más actualizado.
+        
+        setCounter(counter + 1);     
+        
+        // Forma segura -> al ser una función, React encola la actualización y le pasa el valor más reciente.
+        // Esto evita problemas de concurrencia lógica y garantiza consistencia.
+        
+        setCounter((c) => c + 1);   // forma equivalente a la de arriba pero SEGURA
+
+    En las versiones mas modernas de React, puedo tener por ej 4 useState y solo 1 renderizado. React va a renderizar cuando TODAS terminen de ejecutarse.
+    IMPORTANTE: SIEMPRE utilizar set para cambiar valor al state, para generar RENDERIZADO.
