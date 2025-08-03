@@ -37,8 +37,52 @@ Componente: pequeña parte de código encapsulado que puede o no tener estado y 
 Estado: como se encuentra la info del componente en un punto especifico de tiempo.
 
 CRA vs Vite
-    CRA
-
+    CRA: es un proyecto de node, es para crear SPA(Single Page Application) -> solo tiene 1 index.html
+        node_modules
+            webpack
+        public
+            manifest.json: se linkea a un tag HTML, le dice al navegador como se debe comportar la app cuando se instala, es un archivo de preconfiguracion(para tener una PWA -> Progressive Web App)
+                INFO -> Progressive: funciona en cualquier navegador y mejora según las capacidades del dispositivo
+                - Que nombre mostrar.
+                - Que URL abrir al lanzar la app.
+                - Que tema y colores usar.
+                - Que modo de pantalla usar (fullscreen, standalone, etc.).
+            .png
+            robots.txt: para darle info a los robots de indexacion de Google
+            faicon.ico: icono
+            index.html
+        src
+            App.css
+            App.js          // jsx
+            App.test.js
+            index.css
+            index.js        // jsx -> aca se crea el nodo root(se matchea con tag html de id='root')
+            logo.svg
+            reportWebVitals.js  // algo propio de CRA
+            setupTest.js
+        package-lock.json: como estan construidas las dependencias de node
+        package.json: comandos, lint, versiones de dependencias, etc
+        .gitignore
+        README.md
     Vite
+        node_modules
+        src
+            App.css
+            App.jsx
+            favicon.svg
+            index.css
+            logo.svg
+            main.jsx: linkeo con HTML
+        .gitignore
+        index.html
+        package.json        : menos dependencias que en CRA
+            dependencies
+                "react-dom": document object model, en React Native no existe
+        vite.config.js      : configuraciones donde le digo a vite como trabajar. Me ahorro imports, por ejemplo.
+        package-lock.json
 
-    // HASTA ACÁ solo cree los proyectos, no hice nada mas
+            -NO HAY README.md
+            -No hay manifest
+            -index.html en ruta basica
+            -reemplazo en caliente de modules
+
