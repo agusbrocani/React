@@ -81,8 +81,115 @@ CRA vs Vite
         vite.config.js      : configuraciones donde le digo a vite como trabajar. Me ahorro imports, por ejemplo.
         package-lock.json
 
-            -NO HAY README.md
-            -No hay manifest
-            -index.html en ruta basica
-            -reemplazo en caliente de modules
+    -NO HAY README.md
+    -No hay manifest
+    -index.html en ruta basica
+    -reemplazo en caliente de modules
 
+Primera App React con Vite
+    1- Borrar todo el src del Proyecto
+    // en index.html tengo:
+        <div id="root"></div>
+    2- Crear main.jsx con:
+        import React from "react";
+        import ReactDOM from 'react-dom/client'
+
+        function App() {
+            return (
+                <></>
+            );
+        }
+
+        ReactDOM.createRoot(
+            document.getElementById('root')
+        ).render(
+            <React.StrictMode>
+                <App/>
+            </React.StrictMode>
+        );
+
+        INFO: <React.StrictMode> es un componente especial de React que no renderiza nada en el DOM, pero activa verificaciones adicionales y advertencias
+
+Primer componente
+    3- Crear un archivo .jsx y migrar function App ahí.
+
+Componente First App
+    4- Crear componente First App y renderizarlo
+
+Componente Fragment: para NO USAR divs INNECESARIOS
+    import { Fragment } from 'react'
+    Fragment:
+        <Fragment>
+        </Fragment>
+    Equivalente:
+        <>
+        </>
+IMPORTANTE: SIEMPRE debo poner en el return de un componente un NODO PADRE.
+
+Escribir codigo JS dentro del return
+    { expresion de JS que NO SEA un objeto }
+
+    Ejemplo: 
+    <h1>{helloWorld()}</h1>
+    IMPORTANTE: NO PUEDO UTILIZAR funciones async => devuelven promesa
+
+[BUENA PRACTICA]
+IMPORTANTE: SI NO CAMBIA EL VALOR de una variable o funcion => PONERLO AFUERA DEL COMPONENTE, es una buena practica. NO UTILIZO MEMORIA DE MÁS.
+    React NO REPROCESA ni RE-RENDERIZA todo lo que este fuera del componente
+
+Colocar estilos de CSS en componente
+    5- Crear styles.css
+    
+    Fallback fonts: si no existe una, pasa a la otra, para ver si existe y usala.
+        font-family: Helvetica, Arial, sans-serif;
+
+    PRO TIP:
+    a- Selecciono props de css
+    b- CTRL+SHIFT+P
+    c- Escribo 'Sort Lines Asc...'
+    // Ordeno las props de css alfabeticamente
+
+    IMPORTANTE: hacer import './styles.css' en main.jsx => tengo estilos globales
+
+INFO: Tocar >> en el navegador, puedo ver el ARBOL DE COMPONENTES [Contexto en el cual corro la App].
+
+PROPS: comunicación entre componentes. Son parametros que, NORMALMENTE, se DESESTRUCTURAN.
+    NO HAGO props.title, directamente uso title. En el parametro del componente funcional hago { title } en vez de tener props a secas.
+    title="TituloQueLeMandoAlComponenteHijo"
+    valor={123}
+
+PropTypes [OBSOLETO si utilizo TypeScript]: definir tipos a propiedades. No viene instalado por defecto en Vite, si en CRA.
+    a- npm install prop-types
+    b- import PropTypes from 'prop-types'
+
+    // Lo defino abajo de mi componente, por fuera.
+    NombreComponente.propTypes = {
+        title: PropTypes.string.isRequired,
+        valor: PropTypes.number.isRequired
+    }
+    TIRA UN ERROR si envie algo que NO ES UN STRING al componente
+
+Default Props:
+    NombreComponente ({
+        title = 'Titulo por defecto',
+        valor = valorPorDefecto
+    })
+
+    // Esto entra antes que los .propTypes
+    NombreComponente.defaultProps = {
+        title = 'No hay titulo',
+        valor = valorPorDefecto
+    }
+
+Tarea: componente CounterApp
+    CONSIGNA: https://gist.github.com/Klerith/e1a731cc595c00a9794a709062eae757
+
+Evento click
+    a- Colocar etiqueta button
+    b- Colocar estilo en styles.css a todos los button
+    
+    Envio los parametros de onClick directamente a funcionDeAccion, no hace falta especificar nada. Tambien si funcion de accion trabaja sin parametros, esta forma es valida.
+        <button onClick={funcionDeAccion}>Mi Boton</button>
+    Cuando quiero enviar mas parametros que los basicos de onClick
+        <button onClick={(event) => funcionDeAccion(event, otro)}>Mi Boton</button>
+    INFO: https://es.react.dev/reference/react-dom/components/common#react-event-object
